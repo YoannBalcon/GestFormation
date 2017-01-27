@@ -13,7 +13,6 @@ public class Formation {
 	}
 
 	public Formation(int formation_id, String nom) {
-		super();
 		this.formation_id = formation_id;
 		this.nom = nom;
 	}

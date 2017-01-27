@@ -12,7 +12,7 @@ public class ConnectDb {
 	public static Connection getConnection() {
 		String login = "root";
 		String passwd = "admin";
-		if (cn == null) {
+		if (cn == null || (cn != null && cn.isClosed()) ) {
 			try {
 				Class.forName("com.mysql.jdbc.Driver");
 				cn = (Connection) DriverManager.getConnection(url, login,

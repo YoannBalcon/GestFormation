@@ -13,75 +13,93 @@ import com.mysql.jdbc.ResultSet;
 import com.mysql.jdbc.Statement;
 
 public class StagiaireDao {
-	
-	public void createStagiaire(Stagiaire s) throws Exception {
-		Connection cn = ConnectDb.getConnection();
 
-		PreparedStatement stAddPersonne;
-		PreparedStatement stAddStagiaire;
+    Formation formation;
 
-		try {
-			cn.setAutoCommit(false);
+    public static void delete(Stagiaire s) throws Exception {
+        Connection cn = ConnectDb.getConnection();
+        PreparedStatement st;
+        try {
+            st = (PreparedStatement) cn.prepareStatement("DELETE FROM Personne WHERE id = ?");
+            st.setInt(1, s.getId());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new Exception("error during the creation process" + e.getMessage());
+        }
 
-			stAddPersonne = (PreparedStatement) cn.prepareStatement(
-					"INSERT INTO Personne (nom, prenom) VALUES (?, ?);",
-					Statement.RETURN_GENERATED_KEYS);
-			stAddPersonne.setString(1, s.getNom());
-			stAddPersonne.setString(2, s.getPrenom());
+    }
 
-			stAddPersonne.execute();
+    public static void create(Stagiaire s) throws Exception {
+        Connection cn = ConnectDb.getConnection();
 
-			ResultSet rs = (ResultSet) stAddPersonne.getGeneratedKeys();
-			if (!rs.next()) {
-				throw new Exception("Cannot generate \"personne_id\"");
-			}
-			s.setMatricule(rs.getInt(1));
+        PreparedStatement stAddPersonne;
+        PreparedStatement stAddStagiaire;
 
-			stAddStagiaire = (PreparedStatement) cn
-					.prepareStatement("INSERT INTO Stagiaire (matricule, id_personne, id_formation), VALUES (?, ?, ?)");
-			stAddStagiaire.setInt(1, s.getId());
-			stAddStagiaire.setInt(1, s.getMatricule());
-			stAddStagiaire.setInt(1, s.getFormation().getId());
-			stAddStagiaire.execute();
+        try {
+            cn.setAutoCommit(false);
 
-			cn.commit();
-			stAddPersonne.close();
-			stAddStagiaire.close();
-		} catch (SQLException e) {
-			cn.rollback();
-			throw new Exception("error during the creation process"
-					+ e.getMessage());
-		}
-	}
+            stAddPersonne = (PreparedStatement) cn.prepareStatement(
+                    "INSERT INTO Personne (nom, prenom) VALUES (?, ?);",
+                    Statement.RETURN_GENERATED_KEYS);
+            stAddPersonne.setString(1, s.getNom());
+            stAddPersonne.setString(2, s.getPrenom());
 
-	public List<Stagiaire> findAll(Formation formation) {
-		Connection cn = ConnectDb.getConnection();
-		List<Stagiaire> stagiaires = new ArrayList<>();
-		PreparedStatement st;
+            stAddPersonne.execute();
 
-		try {
-			st = (PreparedStatement) cn
-					.prepareStatement("SELECT * FROM Stagiaire INNER JOIN Personne ON stagiaire.id_personne = Personne.id WHERE id_formation = ?");
-			st.setInt(1, formation.getId());
+            ResultSet rs = (ResultSet) stAddPersonne.getGeneratedKeys();
+            if (!rs.next()) {
+                throw new Exception("Cannot generate \"personne_id\"");
+            }
+            s.setId(rs.getInt(1));
 
-			ResultSet rs = (ResultSet) st.executeQuery();
+            stAddStagiaire = (PreparedStatement) cn.prepareStatement("INSERT INTO Stagiaire (matricule, id_personne, id_formation) VALUES (?, ?, ?)");
+            stAddStagiaire.setInt(1, s.getMatricule());
+            stAddStagiaire.setInt(2, s.getId());
+            stAddStagiaire.setInt(3, s.getFormation().getId());
+            stAddStagiaire.execute();
 
-			while (rs.next()) {
-				int matricule = rs.getInt("matricule");
-				String nom = rs.getString("nom");
-				String prenom = rs.getString("prenom");
-				int id = rs.getInt("id");
+            rs = (ResultSet) stAddStagiaire.getGeneratedKeys();
+            if (!rs.next()) {
+                throw new Exception("Cannot generate \"personne_id\"");
+            }
+            s.setMatricule(rs.getInt(1));
+            cn.commit();
+            stAddPersonne.close();
+            stAddStagiaire.close();
 
-				Stagiaire s = new Stagiaire(id, nom, prenom, matricule,
-						formation);
+        } catch (SQLException e) {
+            cn.rollback();
+            throw new Exception("error during the creation process" + e.getMessage());
+        }
+    }
 
-				stagiaires.add(s);
-			}
-			rs.close();
-		} catch (SQLException e) {
-			throw new RuntimeException();
-		}
-		return stagiaires;
+    public static List<Stagiaire> findAll() {
+        Connection cn = ConnectDb.getConnection();
+        List<Stagiaire> stagiaires = new ArrayList<>();
+        PreparedStatement st;
 
-	}
+        try {
+            st = (PreparedStatement) cn
+                    .prepareStatement("SELECT * FROM Stagiaire  s INNER JOIN Personne  p ON s.id_personne = p.id INNER JOIN  Formation f ON s.id_formation = f.id");
+
+            ResultSet rs = (ResultSet) st.executeQuery();
+
+            while (rs.next()) {
+                int matricule = rs.getInt("s.matricule");
+                String nom = rs.getString("p.nom");
+                String prenom = rs.getString("p.prenom");
+                int id = rs.getInt("id_personne");
+                Formation formation = new Formation(rs.getInt("f.id"), rs.getString("f.nom"));
+
+                Stagiaire s = new Stagiaire(id, nom, prenom, matricule, formation);
+
+                stagiaires.add(s);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
+        return stagiaires;
+
+    }
 }
