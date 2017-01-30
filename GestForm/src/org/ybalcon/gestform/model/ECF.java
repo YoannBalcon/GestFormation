@@ -1,28 +1,14 @@
 package org.ybalcon.gestform.model;
 
 public class ECF {
-	int ecf_id;
-	String intitule;
 
-	public ECF(int id, String intitule) {
-		this.intitule = intitule;
-		this.ecf_id = id;
-	}
+    int id;
+    String nom;
+    int id_formation;
 
-	public int getId() {
-		return ecf_id;
-	}
-
-	public void setId(int id) {
-		this.ecf_id = id;
-	}
-
-	public String getIntitule() {
-		return intitule;
-	}
-
-	public void setIntitule(String intitule) {
-		this.intitule = intitule;
-	}
+    public ECF(int id, String nom) {
+        this.nom = nom;
+        this.id = id;
+    }
 
 }

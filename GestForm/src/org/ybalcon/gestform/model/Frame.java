@@ -25,6 +25,12 @@ public class Frame extends javax.swing.JFrame {
     TblStagiaire tbls;
     TblFormation tblf;
 
+    public void emptyFieldWarning(String champs) {
+        JOptionPane jpWarning = new JOptionPane();
+        jpWarning.showMessageDialog(null, "Champs requis : " + champs, "Champs requis", JOptionPane.WARNING_MESSAGE);
+
+    }
+
     /**
      * Creates new form Frame
      */
@@ -33,26 +39,27 @@ public class Frame extends javax.swing.JFrame {
 
         List<Formation> formations = FormationDao.findAll();
         for (Formation f : formations) {
-            comboAddStag.addItem(f);
+            comboAddStagiaire.addItem(f);
         }
-        btnDelForm.setEnabled(false);
-        btnEditForm.setEnabled(false);
-        btnEditStag.setEnabled(false);
-        btnDelStag.setEnabled(false);
+        btnDelFormation.setEnabled(false);
+        btnEditFormation.setEnabled(false);
+        btnEditStagiaire.setEnabled(false);
+        btnDelStagiaire.setEnabled(false);
         AddStagPanel.setVisible(false);
+        editStagPanel.setVisible(false);
 
         TableauFormation.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent evt) {
 
-                btnEditForm.setEnabled(true);
-                btnDelForm.setEnabled(true);
+                btnEditFormation.setEnabled(true);
+                btnDelFormation.setEnabled(true);
 
             }
         });
         TableauStagiaire.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent evt) {
-                btnEditStag.setEnabled(true);
-                btnDelStag.setEnabled(true);
+                btnEditStagiaire.setEnabled(true);
+                btnDelStagiaire.setEnabled(true);
             }
 
         });
@@ -77,27 +84,40 @@ public class Frame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         TableauFormation = new javax.swing.JTable();
         jPanel9 = new javax.swing.JPanel();
-        btnAddForm = new javax.swing.JButton();
-        btnEditForm = new javax.swing.JButton();
-        btnDelForm = new javax.swing.JButton();
+        btnAddFormation = new javax.swing.JButton();
+        btnEditFormation = new javax.swing.JButton();
+        btnDelFormation = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        btnAddStag = new javax.swing.JButton();
+        btnAddStagiaire = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         TableauStagiaire = new javax.swing.JTable();
         AddStagPanel = new javax.swing.JPanel();
-        textFieldPrenom = new javax.swing.JTextField();
-        textFieldNom = new javax.swing.JTextField();
+        textFieldAddPrenom = new javax.swing.JTextField();
+        textFieldAddNom = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        comboAddStag = new javax.swing.JComboBox<>();
+        comboAddStagiaire = new javax.swing.JComboBox<>();
         jPanel7 = new javax.swing.JPanel();
-        AddStBtn = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        jPanel12 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
+        btnConfirmAddStagiaire = new javax.swing.JButton();
+        btnEraseAddStagiaire = new javax.swing.JButton();
+        btnCancelAddStagiaire = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
-        btnEditStag = new javax.swing.JButton();
-        btnDelStag = new javax.swing.JButton();
+        btnEditStagiaire = new javax.swing.JButton();
+        btnDelStagiaire = new javax.swing.JButton();
+        editStagPanel = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        textFieldEditPrenom = new javax.swing.JTextField();
+        textFieldEditNom = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        comboEditStagiaire = new javax.swing.JComboBox<>();
+        jPanel14 = new javax.swing.JPanel();
+        btnConfirmEditStagiaire = new javax.swing.JButton();
+        btnCancelEditStagiaire = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
         btnAddEcf = new javax.swing.JButton();
         btnEditEcf = new javax.swing.JButton();
         btnDelEcf = new javax.swing.JButton();
@@ -142,32 +162,32 @@ public class Frame extends javax.swing.JFrame {
         tblf = new TblFormation(FormationDao.findAll());
         TableauFormation.setModel(tblf);
 
-        jPanel9.setLayout(new java.awt.GridLayout(1, 0));
+        jPanel9.setLayout(new java.awt.GridLayout());
 
-        btnAddForm.setText("Ajouter");
-        btnAddForm.addActionListener(new java.awt.event.ActionListener() {
+        btnAddFormation.setText("Ajouter");
+        btnAddFormation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddFormActionPerformed(evt);
+                btnAddFormationActionPerformed(evt);
             }
         });
-        jPanel9.add(btnAddForm);
+        jPanel9.add(btnAddFormation);
 
-        btnEditForm.setText("Modifier");
-        btnEditForm.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        btnEditForm.addActionListener(new java.awt.event.ActionListener() {
+        btnEditFormation.setText("Modifier");
+        btnEditFormation.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        btnEditFormation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditFormActionPerformed(evt);
+                btnEditFormationActionPerformed(evt);
             }
         });
-        jPanel9.add(btnEditForm);
+        jPanel9.add(btnEditFormation);
 
-        btnDelForm.setText("Supprimer");
-        btnDelForm.addActionListener(new java.awt.event.ActionListener() {
+        btnDelFormation.setText("Supprimer");
+        btnDelFormation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDelFormActionPerformed(evt);
+                btnDelFormationActionPerformed(evt);
             }
         });
-        jPanel9.add(btnDelForm);
+        jPanel9.add(btnDelFormation);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -187,15 +207,15 @@ public class Frame extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Formations", jPanel2);
 
-        btnAddStag.setText("Ajouter un(e) stagiaire");
-        btnAddStag.addActionListener(new java.awt.event.ActionListener() {
+        btnAddStagiaire.setText("Ajouter un(e) stagiaire");
+        btnAddStagiaire.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddStagActionPerformed(evt);
+                btnAddStagiaireActionPerformed(evt);
             }
         });
 
@@ -203,15 +223,15 @@ public class Frame extends javax.swing.JFrame {
         jScrollPane2.setViewportView(TableauStagiaire);
         TableauStagiaire.setModel(tbls);
 
-        textFieldPrenom.addActionListener(new java.awt.event.ActionListener() {
+        textFieldAddPrenom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldPrenomActionPerformed(evt);
+                textFieldAddPrenomActionPerformed(evt);
             }
         });
 
-        textFieldNom.addActionListener(new java.awt.event.ActionListener() {
+        textFieldAddNom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldNomActionPerformed(evt);
+                textFieldAddNomActionPerformed(evt);
             }
         });
 
@@ -219,32 +239,41 @@ public class Frame extends javax.swing.JFrame {
 
         jLabel2.setText("Nom");
 
-        comboAddStag.addActionListener(new java.awt.event.ActionListener() {
+        comboAddStagiaire.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboAddStagActionPerformed(evt);
+                comboAddStagiaireActionPerformed(evt);
             }
         });
 
         jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.LINE_AXIS));
 
-        AddStBtn.setText("Créer");
-        AddStBtn.addActionListener(new java.awt.event.ActionListener() {
+        jPanel12.setLayout(new java.awt.GridLayout());
+
+        jPanel13.setLayout(new java.awt.GridLayout());
+
+        btnConfirmAddStagiaire.setText("OK");
+        btnConfirmAddStagiaire.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddStBtnActionPerformed(evt);
+                btnConfirmAddStagiaireActionPerformed(evt);
             }
         });
-        jPanel7.add(AddStBtn);
+        jPanel13.add(btnConfirmAddStagiaire);
 
-        jButton5.setText("Effacer");
-        jPanel7.add(jButton5);
-
-        jButton6.setText("Quitter");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        btnEraseAddStagiaire.setText("Effacer");
+        btnEraseAddStagiaire.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                btnEraseAddStagiaireActionPerformed(evt);
             }
         });
-        jPanel7.add(jButton6);
+        jPanel13.add(btnEraseAddStagiaire);
+
+        btnCancelAddStagiaire.setText("Annuler");
+        btnCancelAddStagiaire.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelAddStagiaireActionPerformed(evt);
+            }
+        });
+        jPanel13.add(btnCancelAddStagiaire);
 
         javax.swing.GroupLayout AddStagPanelLayout = new javax.swing.GroupLayout(AddStagPanel);
         AddStagPanel.setLayout(AddStagPanelLayout);
@@ -257,44 +286,136 @@ public class Frame extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(106, 106, 106)
                 .addGroup(AddStagPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboAddStag, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textFieldPrenom, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(textFieldNom)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddStagPanelLayout.createSequentialGroup()
-                        .addGap(0, 32, Short.MAX_VALUE)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(comboAddStagiaire, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textFieldAddPrenom, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(textFieldAddNom)
+                    .addGroup(AddStagPanelLayout.createSequentialGroup()
+                        .addGap(0, 39, Short.MAX_VALUE)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(166, 166, 166)
+                        .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AddStagPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         AddStagPanelLayout.setVerticalGroup(
             AddStagPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AddStagPanelLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(AddStagPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textFieldPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textFieldAddPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(18, 18, 18)
                 .addGroup(AddStagPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textFieldNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textFieldAddNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addGap(47, 47, 47)
-                .addComponent(comboAddStag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboAddStagiaire, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanel10.setLayout(new java.awt.GridLayout(1, 0));
 
-        btnEditStag.setText("Modifier");
-        jPanel10.add(btnEditStag);
-
-        btnDelStag.setText("Supprimer");
-        btnDelStag.addActionListener(new java.awt.event.ActionListener() {
+        btnEditStagiaire.setText("Modifier");
+        btnEditStagiaire.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDelStagActionPerformed(evt);
+                btnEditStagiaireActionPerformed(evt);
             }
         });
-        jPanel10.add(btnDelStag);
+        jPanel10.add(btnEditStagiaire);
+
+        btnDelStagiaire.setText("Supprimer");
+        btnDelStagiaire.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelStagiaireActionPerformed(evt);
+            }
+        });
+        jPanel10.add(btnDelStagiaire);
+
+        jLabel6.setText("Prénom");
+
+        textFieldEditPrenom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldEditPrenomActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setText("Nom");
+
+        btnConfirmEditStagiaire.setText("OK");
+
+        btnCancelEditStagiaire.setText("Annuler");
+        btnCancelEditStagiaire.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelEditStagiaireActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel14Layout.createSequentialGroup()
+                .addComponent(btnConfirmEditStagiaire)
+                .addGap(0, 0, 0)
+                .addComponent(btnCancelEditStagiaire))
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(btnConfirmEditStagiaire)
+            .addComponent(btnCancelEditStagiaire)
+        );
+
+        jLabel3.setText("Modification de stagiaire");
+
+        javax.swing.GroupLayout editStagPanelLayout = new javax.swing.GroupLayout(editStagPanel);
+        editStagPanel.setLayout(editStagPanelLayout);
+        editStagPanelLayout.setHorizontalGroup(
+            editStagPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editStagPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(editStagPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(editStagPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(editStagPanelLayout.createSequentialGroup()
+                        .addGroup(editStagPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(editStagPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addGroup(editStagPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(comboEditStagiaire, 0, 260, Short.MAX_VALUE)
+                                .addComponent(textFieldEditNom)
+                                .addComponent(textFieldEditPrenom)))))
+                .addContainerGap())
+        );
+        editStagPanelLayout.setVerticalGroup(
+            editStagPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(editStagPanelLayout.createSequentialGroup()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(editStagPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textFieldEditPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
+                .addGroup(editStagPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textFieldEditNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(18, 18, 18)
+                .addComponent(comboEditStagiaire, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -303,12 +424,13 @@ public class Frame extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE))
+                    .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(AddStagPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnAddStag, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnAddStagiaire, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(editStagPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -316,45 +438,47 @@ public class Frame extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(btnAddStag)
+                        .addComponent(btnAddStagiaire)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(AddStagPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(164, Short.MAX_VALUE))
+                        .addComponent(AddStagPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(editStagPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Stagiaires", jPanel5);
 
+        jPanel8.setLayout(new java.awt.GridLayout());
+
         btnAddEcf.setText("Ajouter");
+        jPanel8.add(btnAddEcf);
 
         btnEditEcf.setText("Modifier");
+        jPanel8.add(btnEditEcf);
 
         btnDelEcf.setText("Supprimer");
+        jPanel8.add(btnDelEcf);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(btnAddEcf)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnEditEcf)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDelEcf)
-                .addGap(0, 639, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(389, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddEcf)
-                    .addComponent(btnEditEcf)
-                    .addComponent(btnDelEcf))
-                .addContainerGap(573, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addContainerGap(432, Short.MAX_VALUE)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(140, 140, 140))
         );
 
         jTabbedPane1.addTab("ECF", jPanel6);
@@ -390,20 +514,12 @@ public class Frame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddStagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStagActionPerformed
+    private void btnAddStagiaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddStagiaireActionPerformed
         AddStagPanel.setVisible(true);
 
-    }//GEN-LAST:event_btnAddStagActionPerformed
+    }//GEN-LAST:event_btnAddStagiaireActionPerformed
 
-    private void textFieldPrenomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldPrenomActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldPrenomActionPerformed
-
-    private void textFieldNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldNomActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldNomActionPerformed
-
-    private void btnEditFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditFormActionPerformed
+    private void btnEditFormationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditFormationActionPerformed
         JOptionPane editPane = new JOptionPane();
         JOptionPane confirmEdit = new JOptionPane();
         int ligne = TableauFormation.getSelectedRow();
@@ -411,94 +527,157 @@ public class Frame extends javax.swing.JFrame {
         if (ligne > -1) {
             Formation f = tblf.getFormation(ligne);
 
-            String n_nom = editPane.showInputDialog(null, "Modifier le nom de la formation", "Modifier une formation", JOptionPane.QUESTION_MESSAGE);
-            try {
-                
-                Formation nf = new Formation(n_nom);
-                FormationDao.update(f);
+            String n_nom = (String) editPane.showInputDialog(null, "Modifier le nom de la formation", "Modifier une formation", JOptionPane.QUESTION_MESSAGE, null, null, f.getNom());
+            if (!n_nom.equals(f.getNom())) {
+                f.setNom(n_nom);
+                try {
+                    FormationDao.update(f);
+                    confirmEdit.showMessageDialog(null, "Formation " + n_nom + " modifiée", "Modifier une formation", JOptionPane.PLAIN_MESSAGE);
+                    tblf.fireTableDataChanged();
 
-                confirmEdit.showMessageDialog(null, "Formation " + n_nom + " modifiée", "Modifier une formation", JOptionPane.PLAIN_MESSAGE);
-            } catch (Exception ex) {
-                Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+
+                }
 
             }
         }
-    }//GEN-LAST:event_btnEditFormActionPerformed
+    }//GEN-LAST:event_btnEditFormationActionPerformed
 
-    private void btnAddFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFormActionPerformed
+    private void btnAddFormationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFormationActionPerformed
         JOptionPane jp1 = new JOptionPane();
         JOptionPane jp2 = new JOptionPane();
 
-        String n_nom = jp1.showInputDialog(null, "Veuillez saisir le nom de la formation", "Ajouter une formation", JOptionPane.QUESTION_MESSAGE);
-        try {
-            Formation f = new Formation(n_nom);
-            FormationDao.create(f);
+        boolean formationAdded = false;
 
-            tblf.addFormation(f);
-            jp2.showMessageDialog(null, "Formation " + n_nom + " ajoutée", " Ajouter un stagiaire", JOptionPane.PLAIN_MESSAGE);
-        } catch (Exception ex) {
-            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+        while (!formationAdded) {
+            btnDelFormation.setEnabled(false);
+            btnEditFormation.setEnabled(false);
 
+            String n_nom = jp1.showInputDialog(null, "Veuillez saisir le nom de la formation", "Ajouter une formation", JOptionPane.QUESTION_MESSAGE);
+            if (n_nom.isEmpty()) {
+                emptyFieldWarning("nom de la formation");
+            } else {
+                try {
+                    Formation f = new Formation(n_nom);
+                    FormationDao.create(f);
+
+                    tblf.addFormation(f);
+                    jp2.showMessageDialog(null, "Formation " + n_nom + " ajoutée", " Ajouter un stagiaire", JOptionPane.PLAIN_MESSAGE);
+                    formationAdded = true;
+                } catch (Exception ex) {
+                    Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+
+                }
+            }
         }
-    }//GEN-LAST:event_btnAddFormActionPerformed
+    }//GEN-LAST:event_btnAddFormationActionPerformed
 
-    private void comboAddStagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboAddStagActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboAddStagActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void btnCancelAddStagiaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelAddStagiaireActionPerformed
         AddStagPanel.setVisible(false);
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_btnCancelAddStagiaireActionPerformed
 
-    private void AddStBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddStBtnActionPerformed
-        String s_prenom = textFieldPrenom.getText();
-        String s_nom = textFieldNom.getText();
-        Object s_form = comboAddStag.getSelectedItem();
+    private void btnConfirmAddStagiaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmAddStagiaireActionPerformed
+        String s_prenom = textFieldAddPrenom.getText();
+        String s_nom = textFieldAddNom.getText();
+        Object s_form = comboAddStagiaire.getSelectedItem();
+
         Stagiaire s = new Stagiaire(0, s_nom, s_prenom, 0, (Formation) s_form);
-        try {
-            StagiaireDao.create(s);
-            tbls.addStagiaire(s);
-            textFieldPrenom.setText(null);
-            textFieldNom.setText(null);
+        if (s_prenom.isEmpty() || s_nom.isEmpty()) {
+            emptyFieldWarning("nom et prénom");
+        } else {
+            try {
+                StagiaireDao.create(s);
+                tbls.addStagiaire(s);
+                textFieldAddPrenom.setText(null);
+                textFieldAddNom.setText(null);
 
-        } catch (Exception ex) {
-            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(Frame.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
         }
-    }//GEN-LAST:event_AddStBtnActionPerformed
+    }//GEN-LAST:event_btnConfirmAddStagiaireActionPerformed
 
-    private void btnDelFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelFormActionPerformed
+    private void btnDelFormationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelFormationActionPerformed
         int ligne = TableauFormation.getSelectedRow();
-        if (ligne > -1) {
-            Formation f = tblf.getFormation(ligne);
-            try {
-                FormationDao.delete(f);
-                tblf.delFormation(f);
-                btnDelForm.setEnabled(false);
-                btnEditForm.setEnabled(false);
-            } catch (Exception ex) {
-                Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+        Formation formation = tblf.getFormation(ligne);
+        JOptionPane jp = new JOptionPane();
+
+        int option = jp.showConfirmDialog(null, "Supprimer la formation \"" + formation + "\" ?", "Supprimer formation ?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (option == JOptionPane.OK_OPTION) {
+
+            if (ligne > -1) {
+                Formation f = tblf.getFormation(ligne);
+                try {
+                    FormationDao.delete(f);
+                    tblf.delFormation(f);
+                    btnDelFormation.setEnabled(false);
+                    btnEditFormation.setEnabled(false);
+
+                } catch (Exception ex) {
+                    Logger.getLogger(Frame.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
         }
 
-    }//GEN-LAST:event_btnDelFormActionPerformed
+    }//GEN-LAST:event_btnDelFormationActionPerformed
 
-    private void btnDelStagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelStagActionPerformed
+    private void btnDelStagiaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelStagiaireActionPerformed
         int ligne = TableauStagiaire.getSelectedRow();
-        if (ligne > -1) {
-            Stagiaire s = tbls.getStagiaire(ligne);
-            try {
-                StagiaireDao.delete(s);
-                tbls.delStagiaire(s);
-                btnEditStag.setEnabled(false);
-                btnDelStag.setEnabled(false);
-            } catch (Exception ex) {
-                Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane jp = new JOptionPane();
+        Stagiaire stagiaire = tbls.getStagiaire(ligne);
+
+        int option = jp.showConfirmDialog(null, "Supprimer \"" + stagiaire + "\" ?", "Supprimer stagiaire ?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (option == JOptionPane.OK_OPTION) {
+
+            if (ligne > -1) {
+                Stagiaire s = tbls.getStagiaire(ligne);
+                try {
+                    StagiaireDao.delete(s);
+                    tbls.delStagiaire(s);
+                    btnEditStagiaire.setEnabled(false);
+                    btnDelStagiaire.setEnabled(false);
+
+                } catch (Exception ex) {
+                    Logger.getLogger(Frame.class
+                            .getName()).log(Level.SEVERE, null, ex);
+                }
+
             }
-
         }
+    }//GEN-LAST:event_btnDelStagiaireActionPerformed
 
-    }//GEN-LAST:event_btnDelStagActionPerformed
+    private void btnEraseAddStagiaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEraseAddStagiaireActionPerformed
+        textFieldAddPrenom.setText(null);
+        textFieldAddNom.setText(null);
+    }//GEN-LAST:event_btnEraseAddStagiaireActionPerformed
+
+    private void comboAddStagiaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboAddStagiaireActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboAddStagiaireActionPerformed
+
+    private void textFieldAddNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldAddNomActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldAddNomActionPerformed
+
+    private void textFieldAddPrenomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldAddPrenomActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldAddPrenomActionPerformed
+
+    private void btnEditStagiaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditStagiaireActionPerformed
+        editStagPanel.setVisible(true);
+    }//GEN-LAST:event_btnEditStagiaireActionPerformed
+
+    private void textFieldEditPrenomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldEditPrenomActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textFieldEditPrenomActionPerformed
+
+    private void btnCancelEditStagiaireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelEditStagiaireActionPerformed
+        editStagPanel.setVisible(false);
+    }//GEN-LAST:event_btnCancelEditStagiaireActionPerformed
 
     /**
      * @param args the command line arguments
@@ -514,16 +693,24 @@ public class Frame extends javax.swing.JFrame {
                 if ("Metal".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Frame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Frame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Frame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Frame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Frame.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -536,25 +723,32 @@ public class Frame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AddStBtn;
     private javax.swing.JPanel AddStagPanel;
     private javax.swing.JTable TableauFormation;
     private javax.swing.JTable TableauStagiaire;
     private javax.swing.JButton btnAddEcf;
-    private javax.swing.JButton btnAddForm;
-    private javax.swing.JButton btnAddStag;
+    private javax.swing.JButton btnAddFormation;
+    private javax.swing.JButton btnAddStagiaire;
+    private javax.swing.JButton btnCancelAddStagiaire;
+    private javax.swing.JButton btnCancelEditStagiaire;
+    private javax.swing.JButton btnConfirmAddStagiaire;
+    private javax.swing.JButton btnConfirmEditStagiaire;
     private javax.swing.JButton btnDelEcf;
-    private javax.swing.JButton btnDelForm;
-    private javax.swing.JButton btnDelStag;
+    private javax.swing.JButton btnDelFormation;
+    private javax.swing.JButton btnDelStagiaire;
     private javax.swing.JButton btnEditEcf;
-    private javax.swing.JButton btnEditForm;
-    private javax.swing.JButton btnEditStag;
-    private javax.swing.JComboBox<Formation> comboAddStag;
+    private javax.swing.JButton btnEditFormation;
+    private javax.swing.JButton btnEditStagiaire;
+    private javax.swing.JButton btnEraseAddStagiaire;
+    private javax.swing.JComboBox<Formation> comboAddStagiaire;
+    private javax.swing.JComboBox<Formation> comboEditStagiaire;
+    private javax.swing.JPanel editStagPanel;
     private javax.persistence.EntityManager entityManager;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -562,19 +756,25 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField textFieldNom;
-    private javax.swing.JTextField textFieldPrenom;
+    private javax.swing.JTextField textFieldAddNom;
+    private javax.swing.JTextField textFieldAddPrenom;
+    private javax.swing.JTextField textFieldEditNom;
+    private javax.swing.JTextField textFieldEditPrenom;
     // End of variables declaration//GEN-END:variables
 
 }

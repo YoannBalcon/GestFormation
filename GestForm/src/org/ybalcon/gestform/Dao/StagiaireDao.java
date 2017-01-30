@@ -102,4 +102,25 @@ public class StagiaireDao {
         return stagiaires;
 
     }
+
+    public static void update(Stagiaire s) throws Exception {
+        Connection cn = ConnectDb.getConnection();
+        PreparedStatement st;
+        PreparedStatement stm;
+        try {
+            st = (PreparedStatement) cn.prepareStatement("UPDATE Personne SET nom = ?, prenom = ?  WHERE id = ?");
+            st.setString(1, s.getNom());
+            st.setString(2, s.getPrenom());
+            st.setInt(3, s.getId());
+            st.executeUpdate();
+
+            stm = (PreparedStatement) cn.prepareStatement("UPDATE Stagiaire SET id_formation = ? WHERE id = ?");
+            stm.setInt(1, s.getFormation().getId());
+            stm.setInt(2, s.getId());
+            stm.executeUpdate();
+            
+        } catch (SQLException e) {
+            throw new Exception("error during the creation process" + e.getMessage());
+        }
+    }
 }
