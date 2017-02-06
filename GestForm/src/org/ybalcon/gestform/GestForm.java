@@ -1,13 +1,24 @@
 package org.ybalcon.gestform;
 
 import org.ybalcon.gestform.model.Frame;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.swing.JRViewer;
+import org.ybalcon.gestform.Dao.ConnectDb;
 
 import org.ybalcon.gestform.Dao.FormationDao;
 import org.ybalcon.gestform.model.Formation;
 import org.ybalcon.gestform.model.Stagiaire;
+import sun.applet.Main;
 
 public class GestForm {
 
@@ -110,6 +121,7 @@ public class GestForm {
                 break;
             }
         }
+          
     }
 
 }
